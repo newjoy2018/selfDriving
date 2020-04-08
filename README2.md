@@ -1,8 +1,5 @@
-# SFND_P2_Radar_Target_Generation_and_Detection
-Udacity, Sensor Fusion, Project of Radar Target Generation and Detection
-
-## Project Layout:
-<img src="./ProjectLayout.JPG" width="700" />
+# Udacity_SensorFusion_P2_Radar_Target_Generation_and_Detection
+Project 2: Radar Target Generation and Detection
 
 * Refer to `radar_target_generation_and_detection.m`
 

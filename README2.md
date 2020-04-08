@@ -84,7 +84,6 @@ for i=1:length(t)
     % Now by mixing the Transmit and Receive generate the beat signal
     % This is done by element wise matrix multiplication of Transmit and Receiver Signal
     Mix(i) =  Tx(i) .* Rx(i); 
-    
 end
 ```
 

@@ -1,4 +1,5 @@
-# Udacity_SensorFusion_P2_Radar_Target_Generation_and_Detection
+# P2_Radar_Target_Generation_and_Detection
+Udacity_SensorFusion
 Project 2: Radar Target Generation and Detection
 
 * Refer to `radar_target_generation_and_detection.m`

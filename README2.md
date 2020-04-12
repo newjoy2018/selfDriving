@@ -4,6 +4,28 @@ Project 2: Radar Target Generation and Detection
 
 * Refer to `radar_target_generation_and_detection.m`
 
+---
+## 1. Implementation steps for the 2D CFAR process
+In a noisy environment full of clutter noise with changing noise level, a constant threshold is often useless. Because the noise level may change over time. We need to dynamically filter the noise. CFAR is such a great algorithm to solve this problem. Because CFAR varies the threshold based on surroundings by using sliding window, so that it offers a constant false alarm rate. In 2D CFAR, it is implemented in both dimentions of range doppler block. The block consists of CUT(Cell Under Test) in the center, surrounded by guard cells and training cells. Therefore, we have following **2D CFAR process steps**:
+* 1. Determine the number of Training cells and Guard cells in both dimensions.
+* 2. Use for-Loop to calculate the average noise level across all the training cells.
+* 3. Multiply the offset to the average noise level, so that we get the threshold.
+* 4. Compare the **CUT signal** with the **threshold**, so that we get a resulted signal map with only 0 and 1.
+* 5. Assign 0 to the edge cells, which are not covered by CUT because of surrounded guard cells and training cells.
+
+---
+## 2. Selection of Training, Guard cells and offset.
+* **Training cells** The cells we use to calculate the average noise level is the training cells. By definition, CFAR hopes to define the threshold by calculating the average noise level of the cells around the target, plus an offset value. So the training cells should surround the CUT. In 1D CFAR, the training cells are on both sides of the CUT, and in 2D CFAR, the training cells should be in up, down, right and left of CUT.       **The number of training cells** should be determined according to the environment. For example, a criterion should be that the range of training cells must not contain other CUT. If there are too many training cells, other CUTs may be contained and the resulted threshold will be very large. In this case, targets may be missed. On the contrary, there will be too many false targets been detected.
+
+* **Guard cells** Considering various strength of target reflection, in practice, the target is not possible to be "contained" in only one cell. If we only use one cell to "contain" the target signal, other part of it will "leak" to training cells, which will lead to a false threshold.  So **the number of guard cells** should be determined by the strength of target reflection. Stronger the target reflection, more the leakage out of CUT, more the guard cells should have.
+
+* **Offset** Offset is used to scale the average noise level. Because **average** means half of the noise level is higher than it. If we use the average value directly as the threshold, there will be a surprisingly number of false targets been detected. So scaling it is necessary. It should be noted that, as a factor, if it is given as logarithmic form, simply add it.
+
+---
+## 3.Steps taken to suppress the non-thresholded cells at the edges.
+
+
+
 
 ---
 ## 1. Define Radar Specifications 

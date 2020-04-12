@@ -15,9 +15,17 @@ In a noisy environment full of clutter noise with changing noise level, a consta
 
 ---
 ## 2. Selection of Training, Guard cells and offset.
-* **Training cells** The cells we use to calculate the average noise level is the training cells. By definition, CFAR hopes to define the threshold by calculating the average noise level of the cells around the target, multiplied by an offset value. So the training cells should surround the CUT. In 1D CFAR, the training cells are on both sides of the CUT, and in 2D CFAR, the training cells should be in up, down, right and left of CUT.       **The number of training cells** should be determined according to the environment. For example, a criterion should be that the range of training cells must not contain other CUT. If there are too many training cells, other CUTs may be contained and the resulted threshold will be very large. In this case, targets may be missed. On the contrary, there will be too many false targets being detected.
+* **Training cells** The cells we use to calculate the average noise level is the training cells. By definition, CFAR hopes to define the threshold by calculating the average noise level of the cells around the target, multiplied by an offset value. So the training cells should surround the CUT.       **The number of training cells** should be determined according to the environment. For example, a criterion should be that the range of training cells must not contain other CUT. If there are too many training cells, other CUTs may be contained and the resulted threshold will be very large. In this case, targets may be missed. On the contrary, there will be too many false targets being detected. Here we choose:
+```
+Tr = 10;    % Number of training cells in range dimension
+Td = 8;     % Number of training cells in doppler dimension
+```
 
-* **Guard cells** Considering various strength of target reflection, in practice, the target is not possible to be "contained" in only one cell. If we only use one cell to "contain" the target signal, other part of it will "leak" to training cells, which will lead to a false threshold.  So **the number of guard cells** should be determined by the strength of target reflection. Stronger the target reflection, more the leakage out of CUT, more the guard cells should have.
+* **Guard cells** Considering various strength of target reflection, in practice, the target is not possible to be "contained" in only one cell. If we only use one cell to "contain" the target signal, other part of it will "leak" to training cells, which will lead to a false threshold.  So **the number of guard cells** should be determined by the strength of target reflection. Stronger the target reflection, more the leakage out of CUT, more the guard cells should have. Here we choose:
+```
+Gr = 10;    % Number of guard cells in range dimension
+Gd = 8;     % Number of guard cells in doppler dimension
+```
 
 * **Offset** Offset is used to scale the average noise level. Because **average** means half of the noise level is higher than it. If we use the average value directly as the threshold, there will be a surprisingly number of false targets been detected. So scaling it is necessary. It should be noted that, as a factor, if it is given as logarithmic form, simply add it.
 

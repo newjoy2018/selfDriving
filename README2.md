@@ -24,7 +24,7 @@ Td = 8;     % Number of training cells in doppler dimension
 * **Guard cells** Considering various strength of target reflection, in practice, the target is not possible to be "contained" in only one cell. If we use only one cell to "contain" the target signal, other part of it will "leak" to training cells, which will lead to a false threshold.  So **the number of guard cells** should be determined by the strength of target reflection. Stronger the target reflection, more the leakage out of CUT, more the guard cells should have. Here we choose:
 ```
 Gr = 4;    % Number of guard cells in range dimension
-Gd = 4;     % Number of guard cells in doppler dimension
+Gd = 4;    % Number of guard cells in doppler dimension
 ```
 
 * **Offset** Offset is used to scale the average noise level. Because **average** means nearly half of the noise level is higher than it. There will be a surprisingly number of false targets if the average value is directly used as the threshold. So it is necessary to scale the average. It should be noted that, as a factor, if it is given in logarithmic form, simply add it. Here we choose:

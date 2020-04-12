@@ -11,7 +11,7 @@ In a noisy environment full of clutter noise with changing noise level, a consta
 * 2. Use for-Loop to calculate the average noise level across all the training cells.
 * 3. Multiply the offset to the average noise level(add offset in logarithmic form), so that we get the threshold.
 * 4. Compare the **CUT signal** against the **threshold**, so that we get a resulted signal map with only 0 and 1.
-* 5. Assign 0 to the edge cells, which are not covered by CUT because of surrounded guard cells and training cells.
+* 5. Suppress the non-thresholded cells at the edges by assigning them a zero.
 
 ---
 ## 2. Selection of Training, Guard cells and offset.

@@ -36,14 +36,11 @@ In this final project, you will implement the missing parts in the schematic. To
 
 
 ## FP.1 Match 3D Objects
-* Implement the method "matchBoundingBoxes", which takes as input both the previous and the current data frames and provides as output the ids of the matched regions of interest (i.e. the boxID property). Matches must be the ones with the highest number of keypoint correspondences.
-* Code is functional and returns the specified output, where each bounding box is assigned the match candidate with the highest number of occurrences.
-  * AAA
+* Here we iterate all of the matches between previous and current data frame, in order to extract corresponding key points. So, we check if the previous bounding box contains previous key points and current bounding box contains current key points. If so, the number of total matches between previous bounding box ID and current bounding box ID will be accumulated. In the end, we choose the match with the max count number as the final match between previous and current bounding box ID. Use for loop to Keep iterating like that untill we find all the matches.
 
 ## FP.2 Compute Lidar-based TTC
-* Compute the time-to-collision in second for all matched 3D objects using only Lidar measurements from the matched bounding boxes between current and previous frame.
-* Code is functional and returns the specified output. Also, the code is able to deal with outlier Lidar points in a statistically robust way to avoid severe estimation errors.
-
+* Here we choose the points inside the ego lane `(abs(it->y) <= laneWidth / 2.0)` and compute the mean value of x coordinates. Then compute LiDAR based TTC with the following equation:
+* TTC = minXCurr * dT / (minXPrev - minXCurr)
 
 ## FP.3 Associate Keypoint Correspondences with Bounding Boxes
 * Prepare the TTC computation based on camera measurements by associating keypoint correspondences to the bounding boxes which enclose them. All matches which satisfy this condition must be added to a vector in the respective bounding box.

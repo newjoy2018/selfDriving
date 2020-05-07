@@ -43,12 +43,13 @@ In this final project, you will implement the missing parts in the schematic. To
 * TTC = minXCurr * dT / (minXPrev - minXCurr)
 
 ## FP.3 Associate Keypoint Correspondences with Bounding Boxes
-* Prepare the TTC computation based on camera measurements by associating keypoint correspondences to the bounding boxes which enclose them. All matches which satisfy this condition must be added to a vector in the respective bounding box.
-* Code performs as described and adds the keypoint correspondences to the "kptMatches" property of the respective bounding boxes. Also, outlier matches have been removed based on the euclidean distance between them in relation to all the matches in the bounding box.
-
+* In `clusterKptMatchesWithROI()` function, we associate a given bounding box with the keypoints it contains. And iterate all of the key-point matches. If the key-point can be found in the region of interest of our current bounding box, then save current match to corresponding bounding box structure for calculating the camera based TTC. Also, we use the threshold of duclidean distance to filter  outlier matches.
 
 ## FP.4 Compute Camera-based TTC
-* Compute the time-to-collision in second for all matched 3D objects using only keypoint correspondences from the matched bounding boxes between current and previous frame.
+* We can measure the time to collision by observing relative height change on the image sensor. But bounding boxes is not a good indicator which can stably reflect the true vehicle dimensions and the aspect ratio differs between images, because the bounding boxes change over different images for the same vehical. If we use bounding box height or width to compute time to collision, it would lead to significant errors. Instead of relying on the detection of the vehicle as a whole, better choice is the structure on the specific vehicle. If it were possible to locate uniquely identifiable keypoints that could be tracked from one frame to the next, we could use the distance between all keypoints on the vehicle relative to each other to compute a robust estimate of the height ratio in out TTC equation. The ratio of all relative distances between each other can be used to compute a reliable TTC estimate by replacing the height ratio h1 / h0 with the mean or median of all distance ratios dk / dk'. However, computing the mean distance ratio as in the function we just discussed would presumably lead to a faulty calculation of the TTC. A more robust way of computing the average of a dataset with outliers is to use the median instead.
+
+
+Compute the time-to-collision in second for all matched 3D objects using only keypoint correspondences from the matched bounding boxes between current and previous frame.
 * Code is functional and returns the specified output. Also, the code is able to deal with outlier correspondences in a statistically robust way to avoid severe estimation errors.
 
 

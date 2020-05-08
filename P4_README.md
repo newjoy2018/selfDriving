@@ -133,8 +133,7 @@ In this final project, you will implement the missing parts in the schematic. To
 |   18  | 8.53557 | 9.3379  |
 <img src="images/TTC_orb_brief.png" width="586" height="348" />
 
-
-
-* Run several detector / descriptor combinations and look at the differences in TTC estimation. Find out which methods perform best and also include several examples where camera-based TTC estimation is way off. As with Lidar, describe your observations again and also look into potential reasons.
-* All detector / descriptor combinations implemented in previous chapters have been compared with regard to the TTC estimate on a frame-by-frame basis. To facilitate comparison, a spreadsheet and graph should be used to represent the different TTCs.
-
+* As we can see from above, it seems that there may always be errors bewteen Lidar- and camera- based TTC estimation, especially in ORB-BRIEF combination. The reasons for these inaccurate camera-based TTC estimation may be:
+- Key-points mismatching
+- lighting condition changes, which may influence the key point detection and tracking.
+* If we fuse with other sensors and use Kalman filter, the result may be improved.

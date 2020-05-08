@@ -50,11 +50,91 @@ In this final project, you will implement the missing parts in the schematic. To
 
 
 ## FP.5 Performance Evaluation 1
-* Find examples where the TTC estimate of the Lidar sensor does not seem plausible. Describe your observations and provide a sound argumentation why you think this happened.
-* Several examples (2-3) have been identified and described in detail. The assertion that the TTC is off has been based on manually estimating the distance to the rear of the preceding vehicle from a top view perspective of the Lidar points.
+* Most TTC estimates from Lidar and camera match very well, there are only small errors between them, like in the following chart(TTC from Lidar is in blue, TTC from camera is in yellow):
+<img src="images/TTC_fromLidar&Camera.png" width="587" height="341" />
 
+* But there are also huge errors in some estimates, like TTC estimate by the detector-descriptor combination of SHITOMASI-FREAK in the following:
+<img src="images/TTC_SHITOMASI&FREAK.png" width="587" height="342" />
+
+* The errors may come from:
+  * The LiDAR and camera are not completely synchronized with each other
+  * The LiDAR itself is not calibrated very well
+  * Vibration may occur during driving which causes huge errors
+* So maybe we can use Kalman filter to reduce errors by minimizing covariance in the future.
 
 ## FP.6 Performance Evaluation 2
+* According to the mid-term project, we get the result that FAST-ORB, FAST-BRIEF, ORB-BRIEF are the Top3 combinations with the fastest processing time.
+* TTC of FAST-ORB
+|   Img	 |    Lidar  	|   Camear   |
+| :----: | :--------: | :--------: |
+|    1   |	12.2891   	|  	13.2736 	|
+|    2   |	13.3547   	|  	16.9247	 |
+|    3   |	16.3845   	| 		12.8019	 |
+|    4   |	14.0764   	| 		10.8876 	|
+|    5   |	12.7299   	|	 	11.8197	 |
+|    6   |	13.7511	   |  	12.075	  |
+|    7   |	13.7314   	|	 	12.1365 	|
+|    8   |	13.7901   	| 		11.3714	 |
+|    9   |	12.059    	| 	 12.828  	|
+|    10  |	11.8642   	| 		13.5979 	|
+|    11  |	11.9682    | 		13.1292 	|
+|    12  |	9.88711   	| 		12.6578	 |
+|    13  |	9.42504   	| 		12.2661	 |
+|    14  |	9.30215   	| 		11.811  	|
+|    15  |	8.3212	   	| 	 8.75591 	|
+|    16  |	8.89867   	| 		11.6437 	|
+|    17  |	11.0301   	| 		10.7754 	|
+|    18  |	8.53557   	| 	 12.0257	 |
+<img src="images/TTC_fast-orb.png" width="588" height="341" />
+
+* TTC of FAST-BRIEF
+|  Img 	|  Lidar	 |  Camear |
+| :---: | :-----: | :-----: |
+|   1   | 12.2891 | 7.81346 |
+|   2   | 13.3547 | 13.3196 |
+|   3   | 16.3845 | 13.2034 |
+|   4   | 14.0764 | 11.5213 |
+|   5   | 12.7299 | 13.0781 |
+|   6   | 13.7511 | 13.2370 |
+|   7   | 13.7314 | 12.1527 |
+|   8   | 13.7901 | 12.8288 |
+|   9   | 12.0590 | 12.9165 |
+|   10  | 11.8642 | 11.2720 |
+|   11  | 11.9682 | 11.6361 |
+|   12  | 9.88711 | 12.3677 |
+|   13  | 9.42504 | 10.9117 |
+|   14  | 9.30215 | 10.4153 |
+|   15  | 8.32120 | 9.90402 |
+|   16  | 8.89867 | 9.22703 |
+|   17  | 11.0301 | 11.0143 |
+|   18  | 8.53557 | 8.7287  |
+<img src="images/TTC_fast_brief.png" width="589" height="346" />
+
+* TTC of ORB-BRIEF
+|  Img 	|  Lidar 	|  Camear |
+| :---: | :-----: | :-----: |
+|   1   | 12.2891 | 9.46493 |
+|   2   | 13.3547 | 9.65069 |
+|   3   | 16.3845 | 9.9927  |
+|   4   | 14.0764 | 20.2057 |
+|   5   | 12.7299 | 13.9588 |
+|   6   | 13.7511 | 11.8182 |
+|   7   | 13.7314 | 9.67764 |
+|   8   | 13.7901 | 12.3274 |
+|   9   | 12.059  | 169.207 |
+|   10  | 11.8642 | 9.82612 |
+|   11  | 11.9682 | 21.3918 |
+|   12  | 9.88711 | 13.4376 |
+|   13  | 9.42504 | 10.0892 |
+|   14  | 9.30215 | 6.79522 |
+|   15  | 8.3212  | 14.1892 |
+|   16  | 8.89867 | 11.0830 |
+|   17  | 11.0301 | 11.5144 |
+|   18  | 8.53557 | 9.3379  |
+<img src="images/TTC_orb_brief.png" width="586" height="348" />
+
+
+
 * Run several detector / descriptor combinations and look at the differences in TTC estimation. Find out which methods perform best and also include several examples where camera-based TTC estimation is way off. As with Lidar, describe your observations again and also look into potential reasons.
 * All detector / descriptor combinations implemented in previous chapters have been compared with regard to the TTC estimate on a frame-by-frame basis. To facilitate comparison, a spreadsheet and graph should be used to represent the different TTCs.
 
